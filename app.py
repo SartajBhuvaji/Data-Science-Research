@@ -25,12 +25,10 @@ def upload():
         print("Algorithm:", algorithm)
 
         print("GOING FROM APP")
-        synthetic_df = script.function(df, minority_class, algorithm)s
+        synthetic_df = script.function(df, minority_class, algorithm)
         synthetic_csv_path = "synthetic_data.csv"
         synthetic_df.to_csv(synthetic_csv_path, index=False)
-
         return redirect(url_for("download_page"))
-
     else:
         return render_template("home.html")
 
