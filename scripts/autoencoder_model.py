@@ -23,17 +23,17 @@ def generate_synthetic_data(model_name: str, original_df, minority_class_column:
     minority_df = minority_df.drop(columns=[minority_class_column])
     input_shape = minority_df.shape[1]
 
-    if model_name == 'single_encoder':
+    if model_name == 'autoencoder_singleencoder':
         encoder_dense_layers = [20]
         bottle_neck = 16
         decoder_dense_layers = [18, 20]
 
-    elif  model_name == 'balanced': 
+    elif  model_name == 'autoencoder_balanced': 
         encoder_dense_layers = [22, 20]
         bottle_neck = 16
         decoder_dense_layers = [20, 22]
 
-    elif model_name == 'heavy_decoder':
+    elif model_name == 'autoencoder_heavydecoder':
         encoder_dense_layers = [22,20]
         bottle_neck = 16
         decoder_dense_layers = [18, 20, 22, 24]

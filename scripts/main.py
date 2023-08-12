@@ -1,15 +1,35 @@
 import pandas as pd
+import os
 import scripts.autoencoder_model as autoencoder_model
 
-def function(file, minority_class, algorithm):
-    if algorithm == "autoencoder":
-        print("Autoencoder")
-        #def generate_synthetic_data(model_name: str, original_df, minority_class_column: str = 'class', minority_class_label: str = '0', decoder_activation: str = 'sigmoid', epochs: int = 100)
-        model_name = 'single_encoder'
-        print("Calling generate_synthetic_data")
-        synthetic_df = autoencoder_model.generate_synthetic_data(model_name=model_name,original_df = file, minority_class_column = 'class',
-                                minority_class_label = minority_class, decoder_activation = 'sigmoid', epochs = 200)
+def function(file, minority_class, minority_class_column, algorithm):
 
-        return synthetic_df
-        #synthetic_df.to_csv("synthetic_data.csv", index=False)
-        # give user the option to download the file                        
+    autoencoders = ['autoencoder_singleencoder', 'autoencoder_balanced', 'autoencoder_heavydecoder']
+    if algorithm in autoencoders:
+        print("Autoencoder")
+        model_name = algorithm
+
+        print("Calling generate_synthetic_data")
+        synthetic_df = autoencoder_model.generate_synthetic_data(model_name=model_name,original_df = file, 
+                                minority_class_column = minority_class_column,
+                                minority_class_label = minority_class, 
+                                decoder_activation = 'sigmoid', epochs = 200)
+
+    #elif:
+        #add your algorithm here
+
+    path = os.path.join(os.getcwd(), 'static', 'output')
+
+    for filename in os.listdir(path):
+        file_path = os.path.join(path, filename)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+        except Exception as e:
+            print(f"Error deleting file: {e}")
+
+    synthetic_df.to_csv(os.path.join(path, 'synthetic_data.csv'), index=False)
+    return 1                       
+
+def testfunctionn():
+    print("IN MAIN.py")

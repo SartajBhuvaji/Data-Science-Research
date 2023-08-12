@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Home</h1>
+    <p>Home page body content.</p>
+    {% for x in content %}
+        <p>{{x}}</p>
+    {% endfor %}
+   <!--
+      return render_template("index.html", content = ["abc", "def","ghi"])
+
+    <p>{{content}}</p>
+    {% for x in range(10) %}
+        {% if x%2==1 %}
+            <p>Hello</p>
+            <p>{{x}}</p>
+        {% endif %}    
+    {% endfor %}
+
+
+
+    {% for x in content %}
+        <p>{{x}}</p>
+    {% endfor %}
+    -->
+
+    
+
+
+</body>
+</html>

@@ -38,29 +38,13 @@
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
-                        <h1 class="mx-auto my-0 text-uppercase">Data Augmentation</h1>
-                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Generate Synthetic Augmented Datasets</h2>
-                           
+                        <!-- <h1 class="mx-auto my-0 text-uppercase">Data Augmentation</h1> -->
+                        <!-- <h2 class="text-white-50 mx-auto mt-2 mb-5">Generate Synthetic Augmented Datasets</h2>
+                            -->
                         <div class="container">
-                            <form action="#" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <input type="text" name = "minority_class" id="minority_class" placeholder="Minority Class">
-                                    <input type="text" name = "minority_class_column" id="minority_class_column" placeholder="Minority Class Column">
-                                    <select name="algorithm" id="algorithm">
-                                        <option value="autoencoder_balanced">Auto Encoder - B</option>
-                                        <option value="autoencoder_singleencoder">Auto Encoder - S</option>
-                                        <option value="autoencoder_heavydecoder">Auto Encoder - H</option>
-                                        <option value="gan">GAN</option>
-                                    </select>     
-                                    <div class ="container">     
-                                        <br> 
-                                        <input type="file" id="csv_file" name="csv_file" padding-top = '20px'>
-                                        <br>
-                                    </div>   
-                                </div>
-                                <br>
-                                <button type="submit" class="btn btn-primary">Generate</button>
-                            </form>
+                            <h2 class="text-white-50 mx-auto mt-2 mb-5">Error in generating your synthetic data</h2>
+                            {{ message }}
+
                         </div>
                         <!-- <a class="btn btn-primary" href="#about">Get Started</a> -->
                     </div>

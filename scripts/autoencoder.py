@@ -57,7 +57,3 @@ def generate_autoencoder(input_shape, **kwargs):
     autoencoder = keras.Model(autoencoder_input, decoded, name="autoencoder")
 
     return autoencoder, encoder, decoder
-    
-    # opt = keras.optimizers.Adam(learning_rate=0.001)
-    # autoencoder.compile(opt, loss="mse")
-    # history = autoencoder.fit(X, X, epochs=epochs, batch_size=batch_size, validation_split=validation_split, verbose=0)
