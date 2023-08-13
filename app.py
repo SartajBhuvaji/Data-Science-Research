@@ -6,16 +6,16 @@ import time
 app = Flask(__name__)
 data_processed = False
 
-@app.route("/")
-def home():
-    return render_template("index1.html")
+# @app.route("/")
+# def home():
+#     return render_template("index1.html")
 
 @app.route("/<usr>")
 def user(usr):
     return f"<h1>{usr}</h1>"
 
-@app.route("/upload", methods=["POST", "GET"])
-def upload():
+@app.route("/", methods=["POST", "GET"])
+def home():
     global data_processed
     if request.method == "POST":
         minority_class = request.form.get("minority_class")
@@ -71,7 +71,7 @@ def download():
     if data_processed:
         return render_template("download.html")
     else:
-        return redirect(url_for("upload"))
+        return redirect(url_for("home"))
 
 @app.route("/download_synthetic_data")
 def download_synthetic_data():
@@ -79,7 +79,7 @@ def download_synthetic_data():
         synthetic_csv_path = "synthetic_data.csv"
         return send_file(synthetic_csv_path, as_attachment=True)
     else:
-        return redirect(url_for("upload"))
+        return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.run(debug=True)
