@@ -33,7 +33,6 @@ def home():
             return redirect(url_for("error", error_message=message))
 
         print("GOING FROM APP")
-
         status_code = script.function(input_df, minority_class,minority_class_column,algorithm)
         if status_code == 1:
             data_processed = True
