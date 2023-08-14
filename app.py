@@ -6,10 +6,6 @@ import time
 app = Flask(__name__)
 data_processed = False
 
-@app.route("/<usr>")
-def user(usr):
-    return f"<h1>{usr}</h1>"
-
 @app.route("/", methods=["POST", "GET"])
 def home():
     global data_processed
