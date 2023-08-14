@@ -42,14 +42,12 @@ def validate_input(input_df, minority_class, minority_class_column):
     if df.empty:
         return (0, "Empty DataFrame")
     if minority_class_column not in df.columns:
-        return (0, "Minority Class Column not present in the DataFrame")    
+        return (0, f"Minority Class Columnc {minority_class_column} not present in the DataFrame") 
+       
     unique_values = df[minority_class_column].unique()
-    try:
-        minority_class = int(minority_class)
-    except ValueError:
-        return (0, "Invalid Minority Class value")
-    if minority_class not in unique_values:
-        return (0, f"Minority Class '{minority_class}' not present in the DataFrame")
+    unique_values_as_str = [str(value) for value in unique_values]
+    if str(minority_class) not in unique_values_as_str:
+        return (0, f"Minority Class '{minority_class}' not present in the DataFrame")  
     
     if df.isnull().values.any():
         return (0, "Missing Values present in the DataFrame")
