@@ -15,17 +15,13 @@ def home():
         algorithm = request.form.get("algorithm")
         csv_file = request.files.get("csv_file")
 
-        try:
-            input_df = pd.read_csv(csv_file)
-        except:
-            return redirect(url_for("error", error_message="Error in reading CSV file"))
-
-        validation_code, message = validate_input(input_df, minority_class, minority_class_column)
+        validation_code, message = validate_input(csv_file, minority_class, minority_class_column)
         if validation_code == 0:
             return redirect(url_for("error", error_message=message))
 
+        input_df = pd.read_csv(csv_file)
         print("GOING FROM APP")
-        status_code = script.function(input_df, minority_class,minority_class_column,algorithm)
+        status_code = script.function(input_df, minority_class, minority_class_column, algorithm)
         if status_code == 1:
             data_processed = True
             return redirect(url_for("download"))
@@ -37,12 +33,23 @@ def error():
     error_message = request.args.get("error_message", default="Internal Error, Please try again.")
     return render_template("error.html", message=error_message)
 
-def validate_input(input_df, minority_class, minority_class_column):
-    df = input_df.copy()
+
+def validate_input(csv_file, minority_class, minority_class_column):
+    if not csv_file:
+        return (0, "No CSV file uploaded")
+    
+    if not csv_file.filename.endswith(".csv"):
+        return (0, "Invalid CSV file uploaded")
+
+    try:
+        df = pd.read_csv(csv_file)
+    except Exception as e:
+        return (0, "Invalid CSV file uploaded")
+
     if df.empty:
         return (0, "Empty DataFrame")
     if minority_class_column not in df.columns:
-        return (0, f"Minority Class Columnc {minority_class_column} not present in the DataFrame") 
+        return (0, f"Minority Class Column {minority_class_column} not present in the DataFrame") 
        
     unique_values = df[minority_class_column].unique()
     unique_values_as_str = [str(value) for value in unique_values]
