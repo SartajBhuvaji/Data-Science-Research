@@ -1,7 +1,6 @@
 from flask import Flask, redirect, send_file, url_for, render_template, request
 import pandas as pd
 import scripts.main as script
-import time
 
 app = Flask(__name__)
 data_processed = False
@@ -14,10 +13,10 @@ def home():
         minority_class_column = request.form.get("minority_class_column")
         algorithm = request.form.get("algorithm")
         csv_file = request.files.get("csv_file")
-
-        validation_code, message = validate_input(csv_file, minority_class, minority_class_column)
+        validation_file = csv_file
+        validation_code, message = validate_input(validation_file, minority_class, minority_class_column)
         if validation_code == 0:
-            return redirect(url_for("error", error_message=message))
+           return redirect(url_for("error", error_message=message))
 
         input_df = pd.read_csv(csv_file)
         print("GOING FROM APP")
@@ -69,6 +68,7 @@ def download():
     else:
         return redirect(url_for("home"))
 
+
 @app.route("/download_synthetic_data")
 def download_synthetic_data():
     if data_processed:
@@ -76,6 +76,7 @@ def download_synthetic_data():
         return send_file(synthetic_csv_path, as_attachment=True)
     else:
         return redirect(url_for("home"))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
