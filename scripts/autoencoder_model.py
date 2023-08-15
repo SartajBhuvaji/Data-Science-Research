@@ -41,9 +41,7 @@ def generate_synthetic_data(model_name: str, original_df, minority_class_column:
     elif model_name == 'custom_autoencoder':  
         encoder_dense_layers = kwargs.get('encoder_dense_layers')
         bottle_neck = kwargs.get('bottle_neck')
-        decoder_dense_layers = kwargs.get('decoder_dense_layers')
-
-
+        decoder_dense_layers = kwargs.get('decoder_dense_layers')    
 
     else:
         raise ValueError("Invalid model name.") 
@@ -56,7 +54,7 @@ def generate_synthetic_data(model_name: str, original_df, minority_class_column:
     except ValueError:
         raise ValueError("Invalid model parameters.")
     
-    print("FITTING AUTOENCODER")
+    print("FITTING AUTOENCODER", epochs)
     opt = keras.optimizers.Adam(learning_rate=0.001)
     autoencoder.compile(optimizer=opt, loss='mse')
 

@@ -34,7 +34,7 @@ def validate_input(input_df, minority_class, minority_class_column, custom=False
                 return (0, "Bottle Neck cannot be empty")
             if len(bottle_neck.split(',')) > 1:
                 return (0, "Bottle Neck cannot have more than one value")
-            if not bottle_neck.isdigit():
+            if not bottle_neck.strip().isdigit():
                 return (0, "Bottle Neck should be an integer")
             if decoder_dense_layers == None or decoder_dense_layers == "":
                 return (0, "Decoder Dense Layers cannot be empty")

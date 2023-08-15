@@ -18,7 +18,6 @@ def function(input_df, minority_class, minority_class_column, algorithm, **kwarg
     autoencoders = ['autoencoder_singleencoder', 'autoencoder_balanced', 'autoencoder_heavydecoder']
     if algorithm in autoencoders:
         try:
-            print("Autoencoder")
             model_name = algorithm
 
             print("Calling generate_synthetic_data")
@@ -32,7 +31,6 @@ def function(input_df, minority_class, minority_class_column, algorithm, **kwarg
         
     elif algorithm == "custom_autoencoder":
         try:
-            print("Custom Autoencoder")
             model_name = "custom_autoencoder"
             encoder_dense_layers_str = kwargs.get('encoder_dense_layers')
             encoder_dense_layers = [int(val) for val in encoder_dense_layers_str.split(",")]

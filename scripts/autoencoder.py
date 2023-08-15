@@ -26,7 +26,7 @@ def generate_autoencoder(input_shape, **kwargs):
     bottle_neck = kwargs.get('bottle_neck', input_shape // 2)
     decoder_dense_layers = kwargs.get('decoder_dense_layers', [])
     decoder_activation = kwargs.get('decoder_activation', 'sigmoid')    
-    print("MODEL: " ,encoder_dense_layers, bottle_neck, decoder_dense_layers, decoder_activation)
+    print("MODEL: " ,encoder_dense_layers, bottle_neck, decoder_dense_layers, decoder_activation, decoder_activation)
     
     # Encoder Model
     encoder_input = keras.Input(shape=(input_shape,), name="encoder")
