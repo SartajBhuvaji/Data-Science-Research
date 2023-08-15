@@ -16,7 +16,7 @@ def validate_input(input_df, minority_class, minority_class_column, custom=False
     if df.isnull().values.any():
         return (0, "Missing Values present in the DataFrame")
 
-    if custom:
+    if custom: # if validating something else than index.html
         print("in custom")
         if kwargs.get("algorithm") == "autoencoder":
             kwargs.get("encoder_dense_layers")
@@ -48,8 +48,9 @@ def validate_input(input_df, minority_class, minority_class_column, custom=False
             if not epochs.strip().isdigit():
                 return (0, "Epochs should be an integer")
 
-        # if kwargs.get("algorithm") == "your_algorithm":
-        #     pass
+            # if kwargs.get("algorithm") == "your_custom_algorithm":
+                # keep Custom = True and add your validate function, if your inputs differ from index.html
+            #     pass
 
         
     return (1, "Validated")

@@ -3,7 +3,7 @@ import scripts.autoencoder_model as autoencoder_model
 # import your function from scripts. here #Do not remove this line, add your code above
 
 def function(input_df, minority_class, minority_class_column, algorithm, **kwargs):
-
+    # Housekeeping
     path = os.path.join(os.getcwd(), 'static', 'output')
     for filename in os.listdir(path):
         file_path = os.path.join(path, filename)
@@ -55,7 +55,8 @@ def function(input_df, minority_class, minority_class_column, algorithm, **kwarg
         except Exception as e:
             print(f"Error in autoencoder: {e}")
             return 0    
-
+    
+    
     '''
     elif:
         try: 
@@ -65,7 +66,10 @@ def function(input_df, minority_class, minority_class_column, algorithm, **kwarg
             print(f"Error in your algorithm: {e}")
             return 0
     '''
+    
     #Dont change code below this line, create a synthetic_df which would be returned
 
     synthetic_df.to_csv(os.path.join(path, 'synthetic_data.csv'), index=False)
-    return 1                       
+    return 1 
+
+                      

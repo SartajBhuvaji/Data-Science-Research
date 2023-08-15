@@ -61,7 +61,8 @@ def generate_synthetic_data(model_name: str, original_df, minority_class_column:
     batch_size = 16
     validation_split = 0.25
 
-    autoencoder.fit(minority_df, minority_df, epochs=epochs, batch_size=batch_size, validation_split=validation_split, verbose=0)
+    autoencoder.fit(minority_df, minority_df, epochs=epochs, 
+                    batch_size=batch_size, validation_split=validation_split, verbose=0)
     synthetic_minority_df = autoencoder.predict(minority_df, verbose=0)
     reshaped_data = synthetic_minority_df.reshape(len(minority_df), -1)
     df_generated = pd.DataFrame(reshaped_data, columns = minority_df.columns)
@@ -70,8 +71,8 @@ def generate_synthetic_data(model_name: str, original_df, minority_class_column:
         df_generated[minority_class_column] = int(minority_class_label)
     else:
         df_generated[minority_class_column] = minority_class_label
+        
     minority_df[minority_class_column] = minority_class_label
-    
     synthetic_df = pd.concat([minority_df, df_generated, majority_df], ignore_index=True)
     synthetic_df = synthetic_df.sample(frac=1).reset_index(drop=True)
 

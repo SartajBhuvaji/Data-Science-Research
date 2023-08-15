@@ -2,6 +2,7 @@
 
 - To add your code, update `index.html`
 - Call your function from `main.py`
+- Validate in `validate.py`
 - Add your code to `scripts` folder
 
 # Do not change app.py
