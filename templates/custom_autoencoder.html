@@ -19,24 +19,15 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/">Data Augmentation</a>
+                <a class="navbar-brand"  href="/">Data Augmentation</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Algorithms
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ url_for('custom_autoencoder') }}">Auto Encoders</a></li>
-                                <li><a class="dropdown-item" href="#">Algorithm 2</a></li>
-                                <li><a class="dropdown-item" href="#">Algorithm 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="#">Custom</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#projects">Team</a></li>
                         <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
                     </ul>
                 </div>
@@ -47,18 +38,26 @@
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
-                        <h1 class="mx-auto my-0 text-uppercase">Data Augmentation</h1>
-                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Generate Synthetic Augmented Datasets</h2>
+                        <!-- <h1 class="mx-auto my-0 text-uppercase">Data Augmentation</h1>-->
+                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Auto Encoders</h2> 
                         <div class="container">
                             <form action="#" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <input type="text" name = "minority_class" id="minority_class" placeholder="Minority Class">
                                     <input type="text" name = "minority_class_column" id="minority_class_column" placeholder="Minority Class Column">
-                                    <select name="algorithm" id="algorithm">
-                                        <option value="autoencoder_balanced" >Auto Encoder - B</option>
-                                        <option value="autoencoder_singleencoder">Auto Encoder - S</option>
-                                        <option value="autoencoder_heavydecoder">Auto Encoder - H</option>
-                                        <!-- <option value="model_name">Add models here</option> (Do not remove this comment, add your line above)-->
+                                    <br><br>
+                                    <input type="text" name = "encoder_dense_layers" id="encoder_dense_layers" placeholder="Encoder Layers">
+                                    <input type="text" name = "bottle_neck" id="bottle_neck" placeholder="Bottle Neck">
+                                    <input type="text" name = "decoder_dense_layers" id="decoder_dense_layers" placeholder="Decoder Layers">
+                                    <br><br>
+                                    <input type="text" name = "epochs" id="epochs" placeholder="Epochs">
+
+                                    <select name="activation" id="decoder_activation">
+                                        <option value="sigmoid" disabled selected hidden>Activations</option>
+                                        <option value="sigmoid" >Sigmoid</option>
+                                        <option value="softmax">Softmax</option>
+                                        <option value="relu">ReLU</option>
+                                        <option value="tanh">Tanh</option>
                                     </select>     
                                     <div class ="container">     
                                         <br> 

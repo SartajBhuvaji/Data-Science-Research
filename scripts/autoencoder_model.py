@@ -3,7 +3,7 @@ import pandas as pd
 from tensorflow import keras
 
 def generate_synthetic_data(model_name: str, original_df, minority_class_column: str = 'class', 
-                            minority_class_label: str = '0', decoder_activation: str = 'sigmoid', epochs: int = 100):
+                            minority_class_label: str = '0', decoder_activation: str = 'sigmoid', epochs: int = 100, **kwargs):
 
     print("In generate_synthetic_data")
     if original_df.empty:
@@ -38,6 +38,13 @@ def generate_synthetic_data(model_name: str, original_df, minority_class_column:
         bottle_neck = 16
         decoder_dense_layers = [18, 20, 22, 24]
 
+    elif model_name == 'custom_autoencoder':  
+        encoder_dense_layers = kwargs.get('encoder_dense_layers')
+        bottle_neck = kwargs.get('bottle_neck')
+        decoder_dense_layers = kwargs.get('decoder_dense_layers')
+
+
+
     else:
         raise ValueError("Invalid model name.") 
     
@@ -65,7 +72,8 @@ def generate_synthetic_data(model_name: str, original_df, minority_class_column:
         df_generated[minority_class_column] = int(minority_class_label)
     else:
         df_generated[minority_class_column] = minority_class_label
-
+    minority_df[minority_class_column] = minority_class_label
+    
     synthetic_df = pd.concat([minority_df, df_generated, majority_df], ignore_index=True)
     synthetic_df = synthetic_df.sample(frac=1).reset_index(drop=True)
 
