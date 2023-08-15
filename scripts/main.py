@@ -35,11 +35,14 @@ def function(input_df, minority_class, minority_class_column, algorithm, **kwarg
             print("Custom Autoencoder")
             model_name = "custom_autoencoder"
             encoder_dense_layers_str = kwargs.get('encoder_dense_layers')
-            encoder_dense_layers = encoder_dense_layers_str.split(",")
+            encoder_dense_layers = [int(val) for val in encoder_dense_layers_str.split(",")]
+
             bottle_neck_str = kwargs.get('bottle_neck')
             bottle_neck = int(bottle_neck_str)
+
             decoder_dense_layers_str = kwargs.get('decoder_dense_layers')
-            decoder_dense_layers = decoder_dense_layers_str.split(",")
+            decoder_dense_layers = [int(val) for val in decoder_dense_layers_str.split(",")]
+
             decoder_activation = kwargs.get('decoder_activation') 
             epochs_str = kwargs.get('epochs')
             epochs = int(epochs_str)
