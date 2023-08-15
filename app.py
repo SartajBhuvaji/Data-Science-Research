@@ -13,13 +13,15 @@ def home():
         minority_class_column = request.form.get("minority_class_column")
         algorithm = request.form.get("algorithm")
         csv_file = request.files.get("csv_file")
-        validation_file = csv_file
-        validation_code, message = validate_input(validation_file, minority_class, minority_class_column)
+
+        if csv_file == None or not str(csv_file.filename).endswith(".csv"):
+            return redirect(url_for("error", error_message="No CSV file uploaded"))
+
+        input_df = pd.read_csv(csv_file)
+        validation_code, message = validate_input(input_df, minority_class, minority_class_column)
         if validation_code == 0:
            return redirect(url_for("error", error_message=message))
 
-        input_df = pd.read_csv(csv_file)
-        print("GOING FROM APP")
         status_code = script.function(input_df, minority_class, minority_class_column, algorithm)
         if status_code == 1:
             data_processed = True
@@ -33,17 +35,8 @@ def error():
     return render_template("error.html", message=error_message)
 
 
-def validate_input(csv_file, minority_class, minority_class_column):
-    if not csv_file:
-        return (0, "No CSV file uploaded")
-    
-    if not csv_file.filename.endswith(".csv"):
-        return (0, "Invalid CSV file uploaded")
-
-    try:
-        df = pd.read_csv(csv_file)
-    except Exception as e:
-        return (0, "Invalid CSV file uploaded")
+def validate_input(input_df, minority_class, minority_class_column):
+    df = input_df.copy()
 
     if df.empty:
         return (0, "Empty DataFrame")

@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import scripts.autoencoder_model as autoencoder_model
+# import your function from scripts. here #Do not remove this line, add your code above
 
 def function(file, minority_class, minority_class_column, algorithm):
 
@@ -16,10 +17,10 @@ def function(file, minority_class, minority_class_column, algorithm):
                                 decoder_activation = 'sigmoid', epochs = 200)
 
     #elif:
-        #add your algorithm here
+        #add your algorithm here (Do not remove this line add your elif statement above this line)
 
+    #Dont change code below this line, create a synthetic_df which would be returned
     path = os.path.join(os.getcwd(), 'static', 'output')
-
     for filename in os.listdir(path):
         file_path = os.path.join(path, filename)
         try:
