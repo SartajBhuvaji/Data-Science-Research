@@ -4,6 +4,7 @@ import scripts.autoencoder_model as autoencoder_model
 
 def function(input_df, minority_class, minority_class_column, algorithm, **kwargs):
     # Housekeeping
+    print("Housekeeping")
     path = os.path.join(os.getcwd(), 'static', 'output')
     for filename in os.listdir(path):
         file_path = os.path.join(path, filename)
@@ -18,8 +19,8 @@ def function(input_df, minority_class, minority_class_column, algorithm, **kwarg
     autoencoders = ['autoencoder_singleencoder', 'autoencoder_balanced', 'autoencoder_heavydecoder']
     if algorithm in autoencoders:
         try:
+            print(input_df.shape)
             model_name = algorithm
-
             print("Calling generate_synthetic_data")
             synthetic_df = autoencoder_model.generate_synthetic_data(model_name=model_name,original_df = input_df, 
                                     minority_class_column = minority_class_column,
