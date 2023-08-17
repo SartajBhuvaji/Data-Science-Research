@@ -19,7 +19,6 @@ def generate_synthetic_data(model_name: str, original_df, minority_class_column:
         raise ValueError("Minority class label not found in the dataset.")
     
     majority_df = original_df[original_df[minority_class_column] != minority_class_label]
-
     minority_df = minority_df.drop(columns=[minority_class_column])
     input_shape = minority_df.shape[1]
 

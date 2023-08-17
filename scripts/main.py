@@ -58,8 +58,6 @@ def function(input_df, minority_class, minority_class_column, algorithm, **kwarg
             return 0    
     
     if algorithm == "ikc":
-        print("DETECTED IKC")
-        print("INPUT DF SHAPE " ,input_df.shape)
         try:
             synthetic_df = IKC_model.IKC(input_df, minority_class_column=minority_class_column, 
                                          minority_class_label=minority_class)
@@ -71,7 +69,9 @@ def function(input_df, minority_class, minority_class_column, algorithm, **kwarg
     '''
     elif:
         try: 
-        add your algorithm here (Do not remove this line add your elif statement above this line)
+            synthetic_df = your_file.your_algorithm(input_df, minority_class_column=minority_class_column, 
+                                                    minority_class_label=minority_class)
+        #add your algorithm here (Do not remove this line add your elif statement above this line)
 
         except Exception as e:
             print(f"Error in your algorithm: {e}")
