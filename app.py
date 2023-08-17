@@ -62,9 +62,13 @@ def custom_autoencoder():
            return redirect(url_for("error", error_message=message))
         else:
             print("VALDATAED")
-        status_code = script.function(input_df, minority_class, minority_class_column, algorithm="custom_autoencoder", 
-                                      encoder_dense_layers=encoder_dense_layers, bottle_neck=bottle_neck,
-                                      decoder_dense_layers=decoder_dense_layers, epochs=epochs, decoder_activation=decoder_activation)
+        try:
+            status_code = script.function(input_df, minority_class, minority_class_column, algorithm="custom_autoencoder", 
+                                        encoder_dense_layers=encoder_dense_layers, bottle_neck=bottle_neck,
+                                        decoder_dense_layers=decoder_dense_layers, epochs=epochs, decoder_activation=decoder_activation)
+        except Exception as e:
+            print(e)
+            return redirect(url_for("error", error_message="Internal Error, Please try again."))    
 
         if status_code == 1:
             data_processed = True
