@@ -47,6 +47,7 @@ def generate_synthetic_data(model_name: str, original_df, minority_class_column:
         raise ValueError("Invalid model name.") 
     
     try:
+
         autoencoder, encoder, decoder = generate_autoencoder(input_shape, encoder_dense_layers=encoder_dense_layers,
                                                             bottle_neck=bottle_neck, 
                                                             decoder_dense_layers=decoder_dense_layers,
@@ -60,6 +61,9 @@ def generate_synthetic_data(model_name: str, original_df, minority_class_column:
 
     batch_size = 16
     validation_split = 0.25
+
+    data_types = minority_df.dtypes
+    print("DATA TYPES PER COLUMN", data_types)
 
     autoencoder.fit(minority_df, minority_df, epochs=epochs, 
                     batch_size=batch_size, validation_split=validation_split, verbose=0)

@@ -1,5 +1,6 @@
 import os
 import scripts.autoencoder_model as autoencoder_model
+import scripts.ikc as IKC_model
 # import your function from scripts. here #Do not remove this line, add your code above
 
 def function(input_df, minority_class, minority_class_column, algorithm, **kwargs):
@@ -19,7 +20,6 @@ def function(input_df, minority_class, minority_class_column, algorithm, **kwarg
     autoencoders = ['autoencoder_singleencoder', 'autoencoder_balanced', 'autoencoder_heavydecoder']
     if algorithm in autoencoders:
         try:
-            print(input_df.shape)
             model_name = algorithm
             print("Calling generate_synthetic_data")
             synthetic_df = autoencoder_model.generate_synthetic_data(model_name=model_name,original_df = input_df, 
@@ -57,6 +57,16 @@ def function(input_df, minority_class, minority_class_column, algorithm, **kwarg
             print(f"Error in autoencoder: {e}")
             return 0    
     
+    if algorithm == "ikc":
+        print("DETECTED IKC")
+        print("INPUT DF SHAPE " ,input_df.shape)
+        try:
+            synthetic_df = IKC_model.IKC(input_df, minority_class_column=minority_class_column, 
+                                         minority_class_label=minority_class)
+            
+        except Exception as e:
+            print(f"Error in your algorithm: {e}")
+            return 0
     
     '''
     elif:
