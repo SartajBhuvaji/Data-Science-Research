@@ -1,7 +1,7 @@
 #import necessart libraries
 import pandas as pd 
 
-def your_algorithm(original_df, minority_class_column: str = 'class',minority_class_label: str = '0'):
+def your_algorithm(original_df, minority_class_column: str = 'class', minority_class_label: str = '0'):
     
     print("In generate_synthetic_data")
     if original_df.empty:
@@ -26,7 +26,7 @@ def your_algorithm(original_df, minority_class_column: str = 'class',minority_cl
     except Exception as e:
         print(f"Error in your algorithm: {e}")    
     '''
-    
+
     df_generated = None
     if minority_class_label.isnumeric():
         df_generated[minority_class_column] = int(minority_class_label)
