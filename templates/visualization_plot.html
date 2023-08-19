@@ -36,7 +36,7 @@
                                 <li><a class="dropdown-item" href="#">Algorithm 3</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="#">Visualization</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('visualization') }}">Visualization</a></li>
                         <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
                     </ul>
                 </div>
@@ -47,20 +47,34 @@
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
-                        <h1 class="mx-auto my-0 text-uppercase">Visualization</h1>
-                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Generate Synthetic Augmented Datasets</h2>
                         <div class="container">
-                            <form action="#" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                      
-                                        <br> 
-                                        <input type="text" name = "minority_class" id="minority_class" placeholder="Minority Class">
-                                        <input type="text" name = "minority_class_column" id="minority_class_column" placeholder="Minority Class Column">
-                                        <br>
+        
+                            <!-- display png images here -->
+                            <div class="container" style="max-height: 600px; overflow-y: auto;">
+                                <div class="row">
+                                    {% for row_index in range(0, image_filenames|length, 2) %}
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-6 text-center">
+                                                <p>{{ image_filenames[row_index] }}</p>
+                                                <img src="{{ url_for('serve_image', filename=image_filenames[row_index]) }}" alt="Image" style="max-width: 100%; max-height: 200px;">
+                                                <a href="{{ url_for('serve_image', filename=image_filenames[row_index]) }}" download class="btn btn-primary mt-2">Download</a>
+                                            </div>
+                                            <div class="col-md-6 text-center">
+                                                {% if row_index + 1 < image_filenames|length %}
+                                                <p>{{ image_filenames[row_index + 1] }}</p>
+                                                <img src="{{ url_for('serve_image', filename=image_filenames[row_index + 1]) }}" alt="Image" style="max-width: 100%; max-height: 200px;">
+                                                <a href="{{ url_for('serve_image', filename=image_filenames[row_index + 1]) }}" download class="btn btn-primary mt-2">Download</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
                                 </div>
                                 <br>
-                                <button type="submit" class="btn btn-primary">Visualize</button>
-                            </form>
+                                <br>
+                                <a class="navbar-brand" href="/">Home</a>
+                            </div>
                         </div>
                     </div>
                 </div>

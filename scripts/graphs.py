@@ -1,5 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use("Agg")
 import seaborn as sns
 import numpy as np
 import os
@@ -7,18 +9,21 @@ from scipy.stats import gaussian_kde, entropy
 
 class Graphs:
     def __init__(self,original_df, synthetic_df, minority_class, minority_class_column, pure_files_checkbox):
+        original_df[minority_class_column] = original_df[minority_class_column].astype(str) 
+        synthetic_df[minority_class_column] = synthetic_df[minority_class_column].astype(str) 
         if not pure_files_checkbox:
             try:
                 self.original_df_minority = original_df[original_df[minority_class_column]==minority_class]
                 self.synthetic_df_minority = synthetic_df[synthetic_df[minority_class_column]==minority_class]
+                
             except Exception as e:
                 print(e)    
         else:
-            self.original_df_minority = original_df
-            self.synthetic_df_minority = synthetic_df
+            self.original_df_minority = original_df.copy()
+            self.synthetic_df_minority = synthetic_df.copy()
 
-        self.original_df_minority.drop(columns=[minority_class_column], axis=1, inplace=True)
-        self.synthetic_df_minority.drop(columns=[minority_class_column], axis=1, inplace=True)
+        self.original_df_minority = self.original_df_minority.drop(columns=[minority_class_column])
+        self.synthetic_df_minority = self.synthetic_df_minority.drop(columns=[minority_class_column])
         self.path = os.path.join(os.getcwd(), 'static', 'graphs')
 
     def plot_heatmaps(self,annot=False) -> None:
@@ -29,9 +34,7 @@ class Graphs:
         sns.heatmap(self.synthetic_df_minority.corr(), annot=annot, cmap='viridis', ax=axes[1])
         axes[1].set_title('Synthetic')
         plt.tight_layout()
-        #use os to save fig
         plt.savefig(os.path.join(self.path, 'heatmap_plot.png'))
-        #plt.savefig('graphs/heatmap.ppg')
         plt.close()
 
     def plot_density(self) -> None:
@@ -87,7 +90,7 @@ class Graphs:
         # print(f"Average KL divergence: {total_kl_divergence / num_columns:.6f}")        
 
 
-    def plot_scatterplots(self, start_index, end_index) -> None:
+    def plot_scatterplot(self, start_index, end_index) -> None:
         num_columns = len(self.original_df_minority.columns)
         num_rows = (num_columns + 4) // 5  
 
@@ -97,9 +100,9 @@ class Graphs:
             col_idx = i % 5
 
             axs[row_idx, col_idx].scatter(self.original_df_minority.index[start_index:end_index], 
-                                          self.original_df_minority[column][start_index:end_index], color='red', label='original_df')
+                                        self.original_df_minority[column][start_index:end_index], color='red', label='original_df')
             axs[row_idx, col_idx].scatter(self.synthetic_df_minority.index[start_index:end_index], 
-                                          self.synthetic_df_minority[column][start_index:end_index], color='blue', label='synthetic_df')
+                                        self.synthetic_df_minority[column][start_index:end_index], color='blue', label='synthetic_df')
 
             axs[row_idx, col_idx].set_title(f"Scatter Plot: {column}")
             axs[row_idx, col_idx].set_xlabel("Index")
@@ -112,16 +115,11 @@ class Graphs:
             fig.delaxes(axs[row_idx, col_idx])
 
         plt.tight_layout()
-        #plt.show()
 
-        for i in range(num_columns, num_rows * 5):
-            row_idx = i // 5
-            col_idx = i % 5
-            fig.delaxes(axs[row_idx, col_idx])
-
-        plt.tight_layout()
-        #plt.show()
+        # Save the scatter plot as an image file
+        plt.savefig(os.path.join(self.path, 'scatter_plot.png'))
         plt.close()
+
     
     def mean_and_std(self) -> pd.DataFrame:
         output = {}

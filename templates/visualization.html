@@ -36,7 +36,7 @@
                                 <li><a class="dropdown-item" href="#">Algorithm 3</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="#">Visualization</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('visualization') }}">Visualization</a></li>
                         <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
                     </ul>
                 </div>
@@ -48,7 +48,7 @@
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
                         <h1 class="mx-auto my-0 text-uppercase">Visualization</h1>
-                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Generate Synthetic Augmented Datasets</h2>
+                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Visualize real vs synthetic dataset</h2>
                         <div class="container">
                             <form action="#" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
@@ -56,10 +56,14 @@
                                         <br> 
                                         <input type="text" name = "minority_class" id="minority_class" placeholder="Minority Class">
                                         <input type="text" name = "minority_class_column" id="minority_class_column" placeholder="Minority Class Column">
+                                        <br>
                                         <input type="checkbox" name="pure_files" id="pure_files"> Pure Original and Pure Synthetic Files</label>
                                         <br>
-                                        <input type="file" id="original_file" name="original_file" padding-left = '0px'>
-                                        <input type="file" id="synthetic_file" name="synthetic_file" padding-top = '0px'>
+                                        <br>
+                                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Select the original and synthetic csv files</h2>                                        
+                                        <input type="file" id="original_file" name="original_file">
+                                        <br>
+                                        <input type="file" id="synthetic_file" name="synthetic_file">
                                         <br>
                                 </div>
                                 <br>

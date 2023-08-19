@@ -1,11 +1,14 @@
-from flask import Flask, redirect, send_file, url_for, render_template, request
+from flask import Flask, redirect, send_file, url_for, render_template, request, send_from_directory
 import pandas as pd
 import scripts.main as script
 import scripts.validate as validate
 import scripts.visualization as visualization
+from scripts.visualization import visualize
+import os
 
 app = Flask(__name__)
 data_processed = False
+image_directory = os.path.join(os.getcwd(),'static', 'graphs')
 
 @app.route("/", methods=["POST", "GET"])
 def home():
@@ -61,8 +64,7 @@ def custom_autoencoder():
                                                   decoder_dense_layers=decoder_dense_layers, epochs=epochs)                  
         if validation_code == 0:
            return redirect(url_for("error", error_message=message))
-        else:
-            print("VALDATAED")
+
         try:
             status_code = script.function(input_df, minority_class, minority_class_column, algorithm="custom_autoencoder", 
                                         encoder_dense_layers=encoder_dense_layers, bottle_neck=bottle_neck,
@@ -92,6 +94,8 @@ def visualization():
         original_file = request.files.get("original_file")
         synthetic_file = request.files.get("synthetic_file")
         pure_files_checkbox = request.form.get("pure_files")
+        pure_files_checkbox = True if pure_files_checkbox else False
+
         if original_file == None or not str(original_file.filename).endswith(".csv") or synthetic_file  == None or not str(synthetic_file.filename).endswith(".csv"): 
             return redirect(url_for("error", error_message="No CSV file uploaded"))
 
@@ -99,20 +103,21 @@ def visualization():
         synthetic_df = pd.read_csv(synthetic_file)
 
         validation_code_1, message_1 = validate.validate_input(original_df, minority_class, minority_class_column)
-        validation_code_2, message_2 = validate.validate_input(original_df, minority_class, minority_class_column)
+        validation_code_2, message_2 = validate.validate_input(synthetic_df, minority_class, minority_class_column)
         if validation_code_1 == 0:
            return redirect(url_for("error", error_message=message_1))
         if validation_code_2 == 0:
             return redirect(url_for("error", error_message=message_2))
 
         try:
-            status_code = visualization.visualize(original_df, synthetic_df, minority_class, minority_class_column, pure_files_checkbox)
+            status_code = visualize(original_df, synthetic_df, minority_class, minority_class_column, pure_files_checkbox)
         except Exception as e:
             print(e)
             return redirect(url_for("error", error_message="Internal Error, Please try again.")) 
-        status_code = 1
+
         if status_code == 1:
-            return redirect(url_for("download"))  # change url here 
+            image_filenames = ['density_plot.png', 'heatmap_plot.png', 'scatter_plot.png']#,""] 
+            return render_template('visualization_plot.html', image_filenames=image_filenames)
     return render_template("visualization.html")
 
 @app.route("/download_synthetic_data")
@@ -123,6 +128,9 @@ def download_synthetic_data():
     else:
         return redirect(url_for("home"))
 
+@app.route('/static/graphs/<filename>')
+def serve_image(filename):
+    return send_from_directory(image_directory, filename)
 
 if __name__ == "__main__":
     app.run(debug=True)

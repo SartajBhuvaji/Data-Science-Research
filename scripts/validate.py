@@ -2,7 +2,6 @@ import pandas as pd
 
 def validate_input(input_df, minority_class, minority_class_column, custom=False, **kwargs):
     df = input_df.copy()
-    print("in validate input")
     if df.empty:
         return (0, "Empty DataFrame")
     if minority_class_column not in df.columns:
@@ -17,7 +16,6 @@ def validate_input(input_df, minority_class, minority_class_column, custom=False
         return (0, "Missing Values present in the DataFrame")
 
     if custom: # if validating something else than index.html
-        print("in custom")
         if kwargs.get("algorithm") == "autoencoder":
             kwargs.get("encoder_dense_layers")
             encoder_dense_layers = kwargs.get("encoder_dense_layers")
