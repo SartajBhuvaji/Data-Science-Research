@@ -2,6 +2,7 @@ from flask import Flask, redirect, send_file, url_for, render_template, request
 import pandas as pd
 import scripts.main as script
 import scripts.validate as validate
+import scripts.visualization as visualization
 
 app = Flask(__name__)
 data_processed = False
@@ -83,6 +84,36 @@ def download():
     else:
         return redirect(url_for("home"))
 
+@app.route("/visualize",methods=["POST", "GET"])
+def visualization():
+    if request.method == "POST":
+        minority_class = request.form.get("minority_class")
+        minority_class_column = request.form.get("minority_class_column")
+        original_file = request.files.get("original_file")
+        synthetic_file = request.files.get("synthetic_file")
+        pure_files_checkbox = request.form.get("pure_files")
+        if original_file == None or not str(original_file.filename).endswith(".csv") or synthetic_file  == None or not str(synthetic_file.filename).endswith(".csv"): 
+            return redirect(url_for("error", error_message="No CSV file uploaded"))
+
+        original_df = pd.read_csv(original_file)
+        synthetic_df = pd.read_csv(synthetic_file)
+
+        validation_code_1, message_1 = validate.validate_input(original_df, minority_class, minority_class_column)
+        validation_code_2, message_2 = validate.validate_input(original_df, minority_class, minority_class_column)
+        if validation_code_1 == 0:
+           return redirect(url_for("error", error_message=message_1))
+        if validation_code_2 == 0:
+            return redirect(url_for("error", error_message=message_2))
+
+        try:
+            status_code = visualization.visualize(original_df, synthetic_df, minority_class, minority_class_column, pure_files_checkbox)
+        except Exception as e:
+            print(e)
+            return redirect(url_for("error", error_message="Internal Error, Please try again.")) 
+        status_code = 1
+        if status_code == 1:
+            return redirect(url_for("download"))  # change url here 
+    return render_template("visualization.html")
 
 @app.route("/download_synthetic_data")
 def download_synthetic_data():
