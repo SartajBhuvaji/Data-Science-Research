@@ -25,6 +25,12 @@ Default Setup
 - Use the home page to balance your dataset if your dataset has values `between 0 and 1`.
 - Else, to select a custom `activation` function or to modify the balancing algorithm, click on `Algorithms`.
  
+## Screenshot
+<div>
+<img src="https://github.com/SartajBhuvaji/Flask-app-Data-Augmentation/blob/main/github_readme/image_1.jpg" alt="Alt Text">
+</div>
+
+
 ## Balancing Algorithms
 - AutoEncoders
     - Balanced
