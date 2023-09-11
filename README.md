@@ -28,7 +28,7 @@ Default Setup
 ## Screenshot
 <div>
 <h3>Synthetic Data Generation<h3>
-- Select your `csv` file
+<p>Select your `csv` file</p>
 <img src="https://github.com/SartajBhuvaji/Flask-app-Data-Augmentation/blob/main/github_readme/image_1.jpg">
 - Download `synthetic_data.csv` file which has the synthetic generated data appended to your csv file.
 <img src="https://github.com/SartajBhuvaji/Flask-app-Data-Augmentation/blob/main/github_readme/image_2.jpg">
