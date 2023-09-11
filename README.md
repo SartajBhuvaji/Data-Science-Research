@@ -20,6 +20,10 @@ Setting up
 Usage
 - Run `python app.py`
 - Open a web browser and navigate to `http://localhost:5000` to access the application.
+
+Default Setup
+- Use the home page to balance your dataset if your dataset has values `between 0 and 1`.
+- Else, to select a custom `activation` function or to modify the balancing algorithm, click on `Algorithms`.
  
 ## Balancing Algorithms
 - AutoEncoders
