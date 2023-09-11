@@ -72,11 +72,11 @@ def generate_synthetic_data(model_name: str, original_df, minority_class_column:
     generated_data = pd.DataFrame()  
     while generated_data.shape[0] < class_count_diff:
         generated_samples = autoencoder.predict(minority_df, verbose=0)  # Generate synthetic samples
-        generated_data = pd.concat([generated_data, pd.DataFrame(generated_samples, columns=MI_saved.columns)], ignore_index=True)
+        generated_data = pd.concat([generated_data, pd.DataFrame(generated_samples, columns=minority_df.columns)], ignore_index=True)
 
-    generated_data = generated_data[:class_count_diff]
-    reshaped_data = generated_data.reshape(len(minority_df), -1)
-    df_generated = pd.DataFrame(reshaped_data, columns = minority_df.columns)
+    #generated_data = generated_data[:class_count_diff]
+    #reshaped_data = generated_data.to_numpy().reshape(len(minority_df), -1)
+    df_generated = pd.DataFrame(generated_data, columns = minority_df.columns)
 
     if minority_class_label.isnumeric():
         df_generated[minority_class_column] = int(minority_class_label)
