@@ -28,17 +28,22 @@ Default Setup
 ## Screenshot
 <div>
 <h3>Synthetic Data Generation<h3>
-<p>Select your `csv` file</p>
+- Select your `csv` file 
+
 <img src="https://github.com/SartajBhuvaji/Flask-app-Data-Augmentation/blob/main/github_readme/image_1.jpg">
+<br>
 - Download `synthetic_data.csv` file which has the synthetic generated data appended to your csv file.
+<br>
 <img src="https://github.com/SartajBhuvaji/Flask-app-Data-Augmentation/blob/main/github_readme/image_2.jpg">
 </div>
 
 <div>
 <h3>Visualization<h3>
 - Upload your `real_data.csv` and `synthetic_data.csv` and click on Visualize
+<br>
 <img src="https://github.com/SartajBhuvaji/Flask-app-Data-Augmentation/blob/main/github_readme/image_3.jpg">
 - Download the visualizations
+<br>
 <img src="https://github.com/SartajBhuvaji/Flask-app-Data-Augmentation/blob/main/github_readme/image_4.jpg">
 </div>
 
