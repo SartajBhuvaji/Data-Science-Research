@@ -34,7 +34,7 @@ def home(request):
         else:
             return redirect('error', error_message="Internal Error, Please try again.")
 
-    return render(request, "yourapp/index.html")
+    return render(request, "templates/index.html")
 
 def error(request):
     error_message = request.GET.get("error_message", "Internal Error, Please try again.")
